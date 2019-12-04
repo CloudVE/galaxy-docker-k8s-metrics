@@ -3,14 +3,17 @@
 # exit on error
 set -e
 
+# create the db
+curl -i -XPOST "$INFLUX_URL/query" --data-urlencode "q=CREATE DATABASE $INFLUX_DB"
+
 data=$(mktemp --suffix .gxadmin)
 
 # send output of all commands to file
 {
-  gxadmin iquery queue-overview
+  gxadmin iquery queue-overview --short-tool-id
   gxadmin iquery queue-detail
   gxadmin iquery jobs-queued
-  gxadmin iquery upload-gb-in-past-hour
+#  gxadmin iquery upload-gb-in-past-hour
   gxadmin iquery users-count
   gxadmin iquery collection-usage
   gxadmin iquery ts-repos
@@ -22,7 +25,7 @@ data=$(mktemp --suffix .gxadmin)
 } > "$data"
 
 # Ship to influxdb
-gxadmin meta influx-post "$INFLUX_DATABASE" "$data"
+gxadmin meta influx-post "$INFLUX_DB" "$data"
 
 # Cleanup
 rm "$data"
