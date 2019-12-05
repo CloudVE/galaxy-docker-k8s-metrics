@@ -7,13 +7,13 @@ ARG APP_USER=gxadmin
 
 # Pass these values to scrape metrics from Galaxy into influx using gxadmin.
 # The postgres database must be the galaxy database.
-ENV PGHOST=""
-ENV PGDATABASE=""
-ENV PGPASSWORD=""
-ENV INFLUX_URL=""
-ENV INFLUX_DB=""
-ENV INFLUX_USER=""
-ENV INFLUX_PASS=""
+ENV PGHOST ""
+ENV PGDATABASE ""
+ENV PGPASSWORD ""
+ENV INFLUX_URL ""
+ENV INFLUX_DB ""
+ENV INFLUX_USER ""
+ENV INFLUX_PASS ""
 
 # Install python-virtualenv
 RUN set -xe; \
