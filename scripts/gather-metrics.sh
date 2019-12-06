@@ -13,7 +13,7 @@ data=$(mktemp --suffix .gxadmin)
   gxadmin iquery queue-overview --short-tool-id
   gxadmin iquery queue-detail
   gxadmin iquery jobs-queued
-#  gxadmin iquery upload-gb-in-past-hour
+  gxadmin iquery upload-gb-in-past-hour
   gxadmin iquery users-count
   gxadmin iquery collection-usage
   gxadmin iquery ts-repos
@@ -21,7 +21,8 @@ data=$(mktemp --suffix .gxadmin)
   gxadmin iquery tool-errors
   gxadmin iquery tool-likely-broken
   # Export all server statistics
-  gxadmin meta slurp-current --date
+  gxadmin meta slurp-current
+  gxadmin meta slurp-day $(date -d "$i days ago" "+%Y-%m-%d")
 } > "$data"
 
 # Ship to influxdb
