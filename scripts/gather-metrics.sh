@@ -11,7 +11,7 @@ data=$(mktemp --suffix .gxadmin)
 # send output of all commands to file
 {
   gxadmin iquery queue-overview --short-tool-id
-  gxadmin iquery queue-detail
+  gxadmin iquery queue-detail --all
   gxadmin iquery jobs-queued
   gxadmin iquery upload-gb-in-past-hour
   gxadmin iquery users-count
