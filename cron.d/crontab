@@ -1,0 +1,4 @@
+*/1 * * * * run-parts --report --exit-on-error --verbose --regex '.*.sh$' /opt/galaxy/cron.d/cron.minute >> /dev/stdout 2>&1
+0 */1 * * * run-parts --report --exit-on-error --verbose --regex '.*.sh$' /opt/galaxy/cron.d/cron.hourly >> /dev/stdout 2>&1
+0 2 */1 * * run-parts --report --exit-on-error --verbose --regex '.*.sh$' /opt/galaxy/cron.d/cron.daily >> /dev/stdout 2>&1
+@reboot run-parts --report --exit-on-error --verbose --regex '.*.sh$' /opt/galaxy/cron.d/cron.once >> /dev/stdout 2>&1
