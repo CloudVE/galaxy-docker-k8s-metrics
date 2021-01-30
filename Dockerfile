@@ -39,9 +39,12 @@ RUN set -xe; \
     chmod -R +x /opt/galaxy/cron.d/; \
     touch /var/log/cron.log; \
     chown $APP_USER:$APP_USER /var/log/cron.log; \
-    crontab -u $APP_USER /opt/galaxy/cron.d/crontab
+    crontab -u $APP_USER /opt/galaxy/cron.d/crontab; \
+    # create location for container env vars which will be passed into cron jobs
+    mkdir /temp-ram-disk; \
+    chown $APP_USER:$APP_USER /temp-ram-disk;
 
 ENTRYPOINT ["/usr/bin/tini", "--"]
 
 # [optional] to run:
-CMD tail -f /var/log/cron.log 2> /dev/null & cron -f
+CMD /bin/bash -c declare -p | grep -Ev 'BASHOPTS|BASH_VERSINFO|EUID|PPID|SHELLOPTS|UID' > /temp-ram-disk/container.env && tail -f /var/log/cron.log 2> /dev/null & cron -f
