@@ -24,8 +24,9 @@ RUN set -xe; \
         python3.8 \
         curl \
         postgresql-client \
+    && ln -s /usr/bin/python3.8 /usr/bin/python3 \
     && ln -s /usr/bin/python3.8 /usr/bin/python \
-    && curl https://raw.githubusercontent.com/cloudve/gxadmin/master/gxadmin > /usr/bin/gxadmin \
+    && curl -L https://github.com/usegalaxy-eu/gxadmin/releases/latest/download/gxadmin > /usr/bin/gxadmin \
     && chmod +x /usr/bin/gxadmin \
     && apt-get autoremove -y && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* \
@@ -47,4 +48,4 @@ RUN set -xe; \
 ENTRYPOINT ["/usr/bin/tini", "--"]
 
 # [optional] to run:
-CMD /bin/bash -c declare -p | grep -Ev 'BASHOPTS|BASH_VERSINFO|EUID|PPID|SHELLOPTS|UID' > /temp-ram-disk/container.env && tail -f /var/log/cron.log 2> /dev/null & cron -f
+CMD /bin/bash -c declare -p | grep -Ev 'BASHOPTS|BASH_VERSINFO|EUID|PPID|SHELLOPTS|UID|_=|IFS' > /temp-ram-disk/container.env && chown gxadmin:gxadmin /temp-ram-disk/container.env && tail -f /var/log/cron.log 2> /dev/null & cron -f

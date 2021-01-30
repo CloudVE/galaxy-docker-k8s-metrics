@@ -1,9 +1,9 @@
 #!/bin/bash
 
+echo "Gathering one-time galaxy stats..."
+
 # create the db
 curl -i -XPOST "$INFLUX_URL/query" --data-urlencode "q=CREATE DATABASE $INFLUX_DB"
-
-echo "Gathering one-time galaxy stats..."
 
 data=$(mktemp --suffix .gxadmin)
 
