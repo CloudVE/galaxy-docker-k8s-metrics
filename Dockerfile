@@ -37,9 +37,11 @@ ADD --chown=gxadmin:gxadmin ./cron.d/ /opt/galaxy/cron.d/
 RUN set -xe; \
     chmod -R 0644 /opt/galaxy/cron.d/; \
     chmod -R +x /opt/galaxy/cron.d/; \
+    touch /var/log/cron.log; \
+    chown $APP_USER:$APP_USER /var/log/cron.log; \
     crontab -u $APP_USER /opt/galaxy/cron.d/crontab
 
 ENTRYPOINT ["/usr/bin/tini", "--"]
 
 # [optional] to run:
-CMD cron -f -L 15
+CMD tail -f /var/log/cron.log 2> /dev/null & cron -f
