@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# exit on error
-set -e
-
 # create the db
 curl -i -XPOST "$INFLUX_URL/query" --data-urlencode "q=CREATE DATABASE $INFLUX_DB"
 

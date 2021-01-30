@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# exit on error
-set -e
-
 data=$(mktemp --suffix .gxadmin)
 
 # send output of all commands to file

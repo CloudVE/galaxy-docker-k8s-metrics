@@ -28,14 +28,15 @@ RUN set -xe; \
     && curl https://raw.githubusercontent.com/cloudve/gxadmin/master/gxadmin > /usr/bin/gxadmin \
     && chmod +x /usr/bin/gxadmin \
     && apt-get autoremove -y && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* /tmp/*
+    && rm -rf /var/lib/apt/lists/* /tmp/* \
+    && adduser --system --group $APP_USER;
 
-ADD ./cron.d/ /opt/galaxy/cron.d/
+ADD --chown=gxadmin:gxadmin ./cron.d/ /opt/galaxy/cron.d/
 
 # Create Galaxy user, group, directory; chown
 RUN set -xe; \
-    adduser --system --group $APP_USER; \
     chmod -R 0644 /opt/galaxy/cron.d/; \
+    chmod -R +x /opt/galaxy/cron.d/; \
     crontab -u $APP_USER /opt/galaxy/cron.d/crontab
 
 ENTRYPOINT ["/usr/bin/tini", "--"]
