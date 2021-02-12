@@ -1,4 +1,4 @@
-*/1 * * * * export $(cat /temp-ram-disk/container.env | xargs) && run-parts --report --verbose --regex '.*.sh$' /opt/galaxy/cron.d/cron.minute > /var/log/cron.log 2>&1
-0 */1 * * * export $(cat /temp-ram-disk/container.env | xargs) && run-parts --report --verbose --regex '.*.sh$' /opt/galaxy/cron.d/cron.hourly > /var/log/cron.log 2>&1
-0 2 */1 * * export $(cat /temp-ram-disk/container.env | xargs) && run-parts --report --verbose --regex '.*.sh$' /opt/galaxy/cron.d/cron.daily > /var/log/cron.log 2>&1
-@reboot export $(cat /temp-ram-disk/container.env | xargs) && run-parts --report --exit-on-error --verbose --regex '.*.sh$' /opt/galaxy/cron.d/cron.once > /var/log/cron.log 2>&1
+* * * * * export $(cat /temp-ram-disk/container.env | xargs) && run-parts --report --verbose --regex '.*.sh$' /opt/galaxy/cron.d/cron.minute >> /var/log/cron.log 2>&1
+0 * * * * export $(cat /temp-ram-disk/container.env | xargs) && run-parts --report --verbose --regex '.*.sh$' /opt/galaxy/cron.d/cron.hourly >> /var/log/cron.log 2>&1
+0 2 * * * export $(cat /temp-ram-disk/container.env | xargs) && run-parts --report --verbose --regex '.*.sh$' /opt/galaxy/cron.d/cron.daily >> /var/log/cron.log 2>&1
+@reboot export $(cat /temp-ram-disk/container.env | xargs) && run-parts --report --exit-on-error --verbose --regex '.*.sh$' /opt/galaxy/cron.d/cron.once >> /var/log/cron.log 2>&1

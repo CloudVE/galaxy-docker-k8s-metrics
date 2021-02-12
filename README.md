@@ -15,18 +15,8 @@ If the specified influx database does not exist, it will be automatically create
 ### How it works
 
 The container runs the gather-metrics script which uses gxadmin provided functionality to
-scrape data and dump the result into the given influxdb.
+scrape data and dump the result into the given influxdb. The data from influxdb can be
+graphed using the existing Grafana dashboards for Galaxy.
 
-You can use a cron job to schedule metrics scraping at a cadence of your choice.
-
-### Ansible for cron job
-
-```yaml
-- name: Create a cron job for gathering stats
-  cron:
-    name: Gather Galaxy Stats
-    job: docker run cloudve/galaxy-metrics-scraper:latest <your_env>
-    minute: 0
-    hour: 0
-    user: "<some_low_privilege_user>"
-```
+Internally, the docker container runs a crontab which will run at minute, hourly, and daily
+schedules to gather various metrics.
