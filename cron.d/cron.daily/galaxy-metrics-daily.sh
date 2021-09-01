@@ -13,6 +13,7 @@ data=$(mktemp --suffix .gxadmin)
   gxadmin iquery tool-likely-broken
   # Export all server statistics
   gxadmin meta slurp-day $(date -d "$i days ago" "+%Y-%m-%d")
+  gxadmin meta slurp-current --date
 } > "$data"
 
 # Ship to influxdb
