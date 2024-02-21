@@ -26,7 +26,7 @@ RUN set -xe; \
         postgresql-client \
     && ln -s /usr/bin/python3.8 /usr/bin/python3 \
     && ln -s /usr/bin/python3.8 /usr/bin/python \
-    && curl -L https://github.com/usegalaxy-eu/gxadmin/releases/latest/download/gxadmin > /usr/bin/gxadmin \
+    && curl -L https://github.com/galaxyproject/gxadmin/releases/latest/download/gxadmin > /usr/bin/gxadmin \
     && chmod +x /usr/bin/gxadmin \
     && apt-get autoremove -y && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* \
